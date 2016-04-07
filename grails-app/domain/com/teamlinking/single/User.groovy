@@ -21,8 +21,6 @@ class User {
     Date loginDate
     //发现版本
     Long findVersion = 0
-    //消息版本
-    Long notifyVersion = 0
     //圈子版本
     Long coterieVersion = 0
     //我想认识>>版本
@@ -38,7 +36,6 @@ class User {
         mobile nullable: false, blank: false
         mobilemd5 nullable: false, blank: false
         findVersion nullable: false, blank: false
-        notifyVersion nullable: false, blank: false
         coterieVersion nullable: false, blank: false
         gtVersion nullable: false, blank: false
         eqVersion nullable: false, blank: false

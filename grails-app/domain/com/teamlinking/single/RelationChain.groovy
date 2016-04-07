@@ -1,30 +1,25 @@
 package com.teamlinking.single
 
-class Photo {
+class RelationChain {
     Long id
 
     Byte status = 1 as Byte
 
     Date dateCreated
-
-    Date lastUpdated
-
-    Long uid
-    //图片地址
-    String url
-    //版本号
-    Long version = System.currentTimeMillis()
+    //主人(手机号码MD5)
+    String owner
+    //朋友(手机号码MD5)
+    String friend
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]
         dateCreated nullable: false, blank: false
-        uid nullable: false, blank: false
-        url nullable: false, blank: false
-        version nullable: false, blank: false
+        owner nullable: false, blank: false
+        friend nullable: false, blank: false
     }
 
     static mapping = {
-        table('t_photo')
+        table('t_relation_chain')
         version(false)
         id generator: 'identity'
     }

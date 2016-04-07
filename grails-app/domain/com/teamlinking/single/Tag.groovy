@@ -1,6 +1,7 @@
 package com.teamlinking.single
 
-class Photo {
+class Tag {
+
     Long id
 
     Byte status = 1 as Byte
@@ -8,10 +9,14 @@ class Photo {
     Date dateCreated
 
     Date lastUpdated
-
+    //标签类型
+    Byte type = 0 as Byte
+    //标签所与人
     Long uid
-    //图片地址
-    String url
+    //标签内容
+    String content
+    //打标人
+    Long operatorUid
     //版本号
     Long version = System.currentTimeMillis()
 
@@ -19,12 +24,14 @@ class Photo {
         status inList: [1 as byte, 0 as byte]
         dateCreated nullable: false, blank: false
         uid nullable: false, blank: false
-        url nullable: false, blank: false
+        type nullable: false, blank: false
+        content nullable: false, blank: false
+        operatorUid nullable: false, blank: false
         version nullable: false, blank: false
     }
 
     static mapping = {
-        table('t_photo')
+        table('t_tag')
         version(false)
         id generator: 'identity'
     }

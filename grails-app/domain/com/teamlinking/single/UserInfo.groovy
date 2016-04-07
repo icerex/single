@@ -11,8 +11,6 @@ class UserInfo {
     Date lastUpdated
     //手机号码
     String mobile
-    //手机号码MD5
-    String mobilemd5
     //姓名
     String name
     //头像
@@ -40,7 +38,7 @@ class UserInfo {
     //版本号
     Long version = 0
     //标签版本号
-    Long tabVersion = 0
+    Long tagVersion = 0
     //相册版本号
     Long albumVersion = 0
 
@@ -48,15 +46,13 @@ class UserInfo {
         status inList: [1 as byte, 0 as byte]
         dateCreated nullable: false, blank: false
         mobile nullable: false, blank: false
-        mobilemd5 nullable: false, blank: false
         version nullable: false, blank: false
-        tabVersion nullable: false, blank: false
+        tagVersion nullable: false, blank: false
         albumVersion nullable: false, blank: false
     }
 
     static mapping = {
         table('t_user_info')
-        version(false)
         id generator: 'assigned'
     }
 }
