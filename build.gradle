@@ -49,6 +49,10 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
+configurations {
+    all*.exclude module: 'slf4j-nop'
+}
+
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
@@ -71,6 +75,25 @@ dependencies {
     testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
 
     console "org.grails:grails-console"
+
+    // fastjson
+    compile 'com.alibaba:fastjson:1.2.6'
+
+    // mysql
+    runtime 'mysql:mysql-connector-java:5.1.34'
+
+    //guava
+    compile "com.google.guava:guava:19.0-rc2"
+
+    //qiniu
+    compile "com.qiniu:qiniu-java-sdk:7.0.7"
+}
+
+loadConfiguration()
+
+def loadConfiguration() {
+    def environment = hasProperty('env') ? env : 'dev'
+    println "Environment is set to $environment"
 }
 
 task wrapper(type: Wrapper) {
