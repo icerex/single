@@ -12,11 +12,11 @@ public class ResultVO {
     private Object result;
 
     public static ResultVO ofSuccess(Object result){
-        return new ResultVO(1,0,null,result);
+        return new ResultVO(200,0,null,result);
     }
 
     public static ResultVO ofFail(int code,String msg){
-        return new ResultVO(0,code,msg,null);
+        return new ResultVO(500,code,msg,null);
     }
 
     ResultVO(int status,int code,String msg,Object result){

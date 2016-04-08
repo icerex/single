@@ -31,5 +31,6 @@ class PersonData {
     static mapping = {
         table('t_person_data')
         id generator: 'identity'
+        mobilemd5 unique: true
     }
 }

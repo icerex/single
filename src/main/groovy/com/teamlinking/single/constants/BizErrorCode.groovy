@@ -5,6 +5,9 @@ package com.teamlinking.single.constants
  */
 enum BizErrorCode {
 
+
+    SYSTEM_BUSY("系统繁忙，请稍后再试", 0),
+
     SESSION_TIME_OUT("登录会话失效", 1),
 
     CHECK_NO_ERROR("验证码错误", 2),
@@ -15,7 +18,7 @@ enum BizErrorCode {
 
     SEND_CHECKNO_FAILED("验证码已发送，请等待接收...", 5),
 
-    SYSTEM_BUSY("系统繁忙，请稍后再试", 6),
+    LOGIN_PARAM_NO_ERRO("缺少登录参数", 6),
 
     SAVE_SELLER_FAILED("注册失败，请稍后再试", 7),
 
@@ -35,6 +38,15 @@ enum BizErrorCode {
     private String msg;
 
     private int code;
+
+    public static BizErrorCode getEnum(int value){
+        for (BizErrorCode it : BizErrorCode.values()) {
+            if (value == it.getCode()) {
+                return it;
+            }
+        }
+        return SYSTEM_BUSY;
+    }
 
     // 构造方法
     private BizErrorCode(String msg, int code) {

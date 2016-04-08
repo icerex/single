@@ -1,5 +1,7 @@
 package com.teamlinking.single
 
+import com.alibaba.fastjson.JSONObject
+
 class UserInfo {
 
     Long id
@@ -42,6 +44,13 @@ class UserInfo {
     //相册版本号
     Long albumVersion = 0
 
+    JSONObject toJSON(){
+        JSONObject jsonObject = JSONObject.toJSON(this.properties)
+        jsonObject.put("id",id)
+        jsonObject.put("version",version)
+        return jsonObject
+    }
+
     static constraints = {
         status inList: [1 as byte, 0 as byte]
         dateCreated nullable: false, blank: false
@@ -49,10 +58,23 @@ class UserInfo {
         version nullable: false, blank: false
         tagVersion nullable: false, blank: false
         albumVersion nullable: false, blank: false
+        name nullable: true, blank: true
+        avatar nullable: true, blank: true
+        sex nullable: true, blank: true
+        birthday nullable: true, blank: true
+        height nullable: true, blank: true
+        locationProv nullable: true, blank: true
+        locationCity nullable: true, blank: true
+        birthplaceProv nullable: true, blank: true
+        birthplaceCity nullable: true, blank: true
+        degree nullable: true, blank: true
+        job nullable: true, blank: true
+        wechat nullable: true, blank: true
     }
 
     static mapping = {
         table('t_user_info')
         id generator: 'assigned'
+        mobile unique: true
     }
 }
