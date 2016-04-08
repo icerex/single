@@ -13,6 +13,8 @@ class User {
     String mobile
     //手机号码MD5
     String mobilemd5
+    //是否注册
+    Byte register = 0 as Byte
     //登陆token
     String token
     // 秘钥
@@ -35,6 +37,7 @@ class User {
         dateCreated nullable: false, blank: false
         mobile nullable: false, blank: false
         mobilemd5 nullable: false, blank: false
+        register inList: [1 as byte, 0 as byte]
         findVersion nullable: false, blank: false
         coterieVersion nullable: false, blank: false
         gtVersion nullable: false, blank: false
