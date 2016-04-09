@@ -1,5 +1,7 @@
 package com.teamlinking.single
 
+import com.alibaba.fastjson.JSONObject
+
 class Photo {
     Long id
 
@@ -13,14 +15,21 @@ class Photo {
     //图片地址
     String url
     //版本号
-    Long version = System.currentTimeMillis()
+    Long edition = System.currentTimeMillis()
+
+    JSONObject toJSON(){
+        JSONObject jsonObject = JSONObject.toJSON(this.properties)
+        jsonObject.put("id",id)
+        jsonObject.put("version",version)
+        return jsonObject
+    }
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]
         dateCreated nullable: false, blank: false
         uid nullable: false, blank: false
         url nullable: false, blank: false
-        version nullable: false, blank: false
+        edition nullable: false, blank: false
     }
 
     static mapping = {

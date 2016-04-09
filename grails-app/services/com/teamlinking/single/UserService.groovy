@@ -1,8 +1,5 @@
 package com.teamlinking.single
 
-import grails.transaction.Transactional
-
-@Transactional
 class UserService {
 
     User get(String mobile) {

@@ -12,13 +12,13 @@ class Require {
 
     Date lastUpdated
     //年龄 小
-    String minAge
+    Integer minAge
     //年龄 大
-    String maxAge
+    Integer maxAge
     //身高 小
-    String minHeight
+    Integer minHeight
     //身高 大
-    String maxHeight
+    Integer maxHeight
     //所在地 省
     String locationProv
     //所在地 市
@@ -29,9 +29,9 @@ class Require {
     Long version = 0
 
     JSONObject toJSON(){
-        JSONObject jsonObject = new JSONObject()
-        jsonObject.putAll(this.properties)
-        jsonObject.putAll("id",id)
+        JSONObject jsonObject = JSONObject.toJSON(this.properties)
+        jsonObject.put("id",id)
+        jsonObject.put("version",version)
         return jsonObject
     }
 

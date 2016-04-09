@@ -18,7 +18,7 @@ enum BizErrorCode {
 
     SEND_CHECKNO_FAILED("验证码已发送，请等待接收...", 5),
 
-    LOGIN_PARAM_NO_ERRO("缺少登录参数", 6),
+    LOGIN_PARAM_NO_ERROR("缺少登录参数", 6),
 
     SAVE_SELLER_FAILED("注册失败，请稍后再试", 7),
 
@@ -32,7 +32,13 @@ enum BizErrorCode {
 
     PERMISSION_DENIED("操作权限校验失败，请稍后重试", 12),
 
-    MOBILE_NO_ERRO("请输入正确的手机号码", 13);
+    MOBILE_NO_ERROR("请输入正确的手机号码", 13),
+
+    NO_SUCH_PHOTO("获取相片数据失败，请稍后重试", 14),
+
+    UPLOAD_PHOTO_ERROR("上传相片失败，请稍后重试", 15),
+
+    UPLOAD_PHOTO_MAX("最多只能上传20张相片", 16);
 
     // 成员变量
     private String msg;

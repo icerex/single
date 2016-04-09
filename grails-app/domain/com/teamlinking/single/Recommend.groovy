@@ -13,7 +13,7 @@ class Recommend {
     //推荐人uid
     Long recommendUid
     //版本号
-    Long version = System.currentTimeMillis()
+    Long edition = System.currentTimeMillis()
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]
@@ -21,7 +21,7 @@ class Recommend {
         receiverUid nullable: false, blank: false
         beRecommendUid nullable: false, blank: false
         recommendUid nullable: false, blank: false
-        version nullable: false, blank: false
+        edition nullable: false, blank: false
     }
 
     static mapping = {

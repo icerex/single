@@ -20,9 +20,9 @@ class NologinController {
 
         ResultVO resultVO = null
         if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(code) ){
-            resultVO = ResultVO.ofFail(BizErrorCode.PARAMS_ERROR.code,BizErrorCode.PARAMS_ERROR.msg)
+            resultVO = ResultVO.ofFail(BizErrorCode.PARAMS_ERROR)
         }else if(!Validator.isMobile(mobile)){
-            resultVO = ResultVO.ofFail(BizErrorCode.MOBILE_NO_ERRO.code,BizErrorCode.MOBILE_NO_ERRO.msg)
+            resultVO = ResultVO.ofFail(BizErrorCode.MOBILE_NO_ERROR)
         }else{
             ResultStatus resultStatus = smsVerifyKit.checkcode(mobile,code,system == SystemType.ios.value)
             if(resultStatus.isSuccess() || (mobile.equals("18668181767") && code.equals("8888"))){

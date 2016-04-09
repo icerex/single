@@ -18,7 +18,7 @@ class Tag {
     //打标人
     Long operatorUid
     //版本号
-    Long version = System.currentTimeMillis()
+    Long edition = System.currentTimeMillis()
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]
@@ -27,7 +27,7 @@ class Tag {
         type nullable: false, blank: false
         content nullable: false, blank: false
         operatorUid nullable: false, blank: false
-        version nullable: false, blank: false
+        edition nullable: false, blank: false
     }
 
     static mapping = {

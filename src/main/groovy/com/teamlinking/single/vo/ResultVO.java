@@ -1,6 +1,7 @@
 package com.teamlinking.single.vo;
 
 import com.alibaba.fastjson.JSON;
+import com.teamlinking.single.constants.BizErrorCode;
 
 /**
  * Created by admin on 16/4/8.
@@ -13,6 +14,10 @@ public class ResultVO {
 
     public static ResultVO ofSuccess(Object result){
         return new ResultVO(200,0,null,result);
+    }
+
+    public static ResultVO ofFail(BizErrorCode bizErrorCode){
+        return new ResultVO(500,bizErrorCode.getCode(), bizErrorCode.getMsg(),null);
     }
 
     public static ResultVO ofFail(int code,String msg){

@@ -16,7 +16,7 @@ class Heat {
     //关系 >>  , ==
     Byte relation = 0
     //版本号
-    Long version = System.currentTimeMillis()
+    Long edition = System.currentTimeMillis()
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]
@@ -25,6 +25,7 @@ class Heat {
         ownerUid nullable: false, blank: false
         receiverUid nullable: false, blank: false
         relation inList: [1 as byte, 0 as byte]
+        edition nullable: false, blank: false
     }
 
     static mapping = {
