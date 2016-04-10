@@ -73,7 +73,7 @@ public class SecurityUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(md5("17098078779"));
+        System.out.println(md5("18901234567"));
         System.out.println(generateTokon("17098078779"));
         String key = "35aeaf45de2a5c5734e6885d852eb812";
         System.out.println(key);

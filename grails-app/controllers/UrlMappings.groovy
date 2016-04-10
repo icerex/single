@@ -24,6 +24,8 @@ class UrlMappings {
         "/api/1.0/tag/add.json"(controller: 'tag', action: 'add')
         "/api/1.0/tag/delete.json"(controller: 'tag', action: 'delete')
 
+        "/api/1.0/relationChain/add.json"(controller: 'relationChain', action: 'add')
+
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')

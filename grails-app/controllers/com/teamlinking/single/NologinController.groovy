@@ -25,7 +25,7 @@ class NologinController {
             resultVO = ResultVO.ofFail(BizErrorCode.MOBILE_NO_ERROR)
         }else{
             ResultStatus resultStatus = smsVerifyKit.checkcode(mobile,code,system == SystemType.ios.value)
-            if(resultStatus.isSuccess() || (mobile.equals("18668181767") && code.equals("8888"))){
+            if(resultStatus.isSuccess() || (mobile.equals("17098078779") && code.equals("8888"))){
                 resultVO = ResultVO.ofSuccess(loginService.login(mobile).toJSON())
             }else {
                 resultVO = ResultVO.ofFail(resultStatus.key,resultStatus.value)

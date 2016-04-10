@@ -39,8 +39,6 @@ public class UserInfoVO {
     private Long tagVersion;
     //相册版本号
     private Long albumVersion;
-    //是否能联系
-    private Integer isCanContact;
 
     public Long getId() {
         return id;
@@ -176,13 +174,5 @@ public class UserInfoVO {
 
     public void setAlbumVersion(Long albumVersion) {
         this.albumVersion = albumVersion;
-    }
-
-    public Integer getIsCanContact() {
-        return isCanContact;
-    }
-
-    public void setIsCanContact(Integer isCanContact) {
-        this.isCanContact = isCanContact;
     }
 }
