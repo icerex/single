@@ -73,8 +73,8 @@ public class SecurityUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(md5("134123412342134123421341234231412341234132"));
-        System.out.println(generateTokon("18668181767"));
+        System.out.println(md5("17098078779"));
+        System.out.println(generateTokon("17098078779"));
         String key = "35aeaf45de2a5c5734e6885d852eb812";
         System.out.println(key);
         long now = System.currentTimeMillis();

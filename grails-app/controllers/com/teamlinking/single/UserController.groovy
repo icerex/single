@@ -1,5 +1,6 @@
 package com.teamlinking.single
 
+import com.google.common.collect.Lists
 import com.teamlinking.single.constants.BizErrorCode
 import com.teamlinking.single.vo.ResultVO
 
@@ -97,6 +98,27 @@ class UserController {
         info.save(flush: true, failOnError: true)
 
         resultVO = ResultVO.ofSuccess(info.toJSON())
+        withFormat {
+            json {
+                render text: resultVO.toJSONString(), contentType: 'application/json;', encoding: "UTF-8"
+            }
+        }
+    }
+
+    def query(){
+        String ids = params."ids" as String
+
+        ResultVO resultVO = null
+        if (ids == null) {
+            resultVO = ResultVO.ofFail(BizErrorCode.PARAMS_ERROR)
+        }else {
+            List<Long> idList = Lists.newArrayList()
+            ids.split(",").each {
+                idList << (it as Long)
+            }
+            resultVO = ResultVO.ofSuccess(userService.query(idList))
+        }
+
         withFormat {
             json {
                 render text: resultVO.toJSONString(), contentType: 'application/json;', encoding: "UTF-8"

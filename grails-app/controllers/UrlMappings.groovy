@@ -11,6 +11,7 @@ class UrlMappings {
 
         "/api/1.0/user/get.json"(controller: 'user', action: 'get')
         "/api/1.0/user/post.json"(controller: 'user', action: 'post')
+        "/api/1.0/user/query.json"(controller: 'user', action: 'query')
 
         "/api/1.0/require/get.json"(controller: 'require', action: 'get')
         "/api/1.0/require/post.json"(controller: 'require', action: 'post')
