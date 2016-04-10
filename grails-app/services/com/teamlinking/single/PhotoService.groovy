@@ -48,7 +48,7 @@ class PhotoService {
                         dateCreated: new Date(),
                         lastUpdated: new Date(),
                         url:qiniuUpload.getDomain() + result.key
-                ).save(flush: true, failOnError: true)
+                ).save()
 
                 info.albumVersion = photo.edition
                 info.lastUpdated = new Date()
@@ -60,9 +60,12 @@ class PhotoService {
         return null
     }
 
-    long invalid(long id){
+    long invalid(long id,long uid){
         Photo photo = Photo.get(id)
         if (photo){
+            if (photo.uid != uid){
+                return -2
+            }
             photo.edition = System.currentTimeMillis()
             photo.status = 0 as Byte
             photo.lastUpdated = new Date()
@@ -74,7 +77,7 @@ class PhotoService {
             info.save(flush: true, failOnError: true)
             return photo.edition
         }
-        return -1;
+        return -1
     }
 
 }

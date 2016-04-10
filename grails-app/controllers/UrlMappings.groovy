@@ -19,6 +19,10 @@ class UrlMappings {
         "/api/1.0/photo/upload.json"(controller: 'photo', action: 'upload')
         "/api/1.0/photo/delete.json"(controller: 'photo', action: 'delete')
 
+        "/api/1.0/tag/pull.json"(controller: 'tag', action: 'pull')
+        "/api/1.0/tag/add.json"(controller: 'tag', action: 'add')
+        "/api/1.0/tag/delete.json"(controller: 'tag', action: 'delete')
+
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')

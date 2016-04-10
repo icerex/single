@@ -38,7 +38,13 @@ enum BizErrorCode {
 
     UPLOAD_PHOTO_ERROR("上传相片失败，请稍后重试", 15),
 
-    UPLOAD_PHOTO_MAX("最多只能上传20张相片", 16);
+    UPLOAD_PHOTO_MAX("最多只能上传20张相片", 16),
+
+    NO_SUCH_TAG("获取标签数据失败，请稍后重试", 17),
+
+    ADD_TAG_ERROR("新增标签失败，请稍后重试", 18),
+
+    ADD_TAG_MAX("每人最多只能为一位添加5个标签", 19);
 
     // 成员变量
     private String msg;

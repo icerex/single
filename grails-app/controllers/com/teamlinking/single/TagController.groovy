@@ -1,13 +1,11 @@
 package com.teamlinking.single
 
 import com.teamlinking.single.constants.BizErrorCode
-import com.teamlinking.single.uitl.MultipartFileUtil
 import com.teamlinking.single.vo.ResultVO
-import org.springframework.web.multipart.MultipartFile
 
-class PhotoController {
+class TagController {
 
-    PhotoService photoService
+    TagService tagService
 
     def pull() {
         long edition = params.long('edition',0)
@@ -16,11 +14,11 @@ class PhotoController {
             uid = flash.user.id
         }
         ResultVO resultVO = null
-        def album = photoService.pull(uid,edition)
-        if (album){
-            resultVO = ResultVO.ofSuccess(album)
+        def tagsVO = tagService.pull(uid,edition)
+        if (tagsVO){
+            resultVO = ResultVO.ofSuccess(tagsVO)
         }else {
-            resultVO = ResultVO.ofFail(BizErrorCode.NO_SUCH_PHOTO)
+            resultVO = ResultVO.ofFail(BizErrorCode.NO_SUCH_TAG)
         }
         withFormat {
             json {
@@ -30,24 +28,25 @@ class PhotoController {
 
     }
 
-    def upload() {
-        MultipartFile photoFile = params."photoFile" as MultipartFile
-        if (photoFile == null ){
-            photoFile = MultipartFileUtil.getMultipartFile(request,"photoFile")
-        }
+    def add() {
+        Byte type = params.getByte("type",0)
+        Long uid = params."uid" as Long
+        String content = params."content" as String
+
+        long operatorUid = flash.user.id
         ResultVO resultVO = null
-        long uid = flash.user.id
-        if (photoFile == null) {
+
+        if (uid == null || content == null) {
             resultVO = ResultVO.ofFail(BizErrorCode.PARAMS_ERROR)
-        }else if (photoService.addEnable(uid)){
-            def photo = photoService.add(uid,photoFile)
-            if (photo){
-                resultVO = ResultVO.ofSuccess(photo.toJSON())
+        }else if (tagService.addEnable(uid,operatorUid)){
+            def tag = tagService.add(type,uid,content,operatorUid)
+            if (tag){
+                resultVO = ResultVO.ofSuccess(tag.toJSON())
             }else {
-                resultVO = ResultVO.ofFail(BizErrorCode.UPLOAD_PHOTO_ERROR)
+                resultVO = ResultVO.ofFail(BizErrorCode.ADD_TAG_ERROR)
             }
         }else {
-            resultVO = ResultVO.ofFail(BizErrorCode.UPLOAD_PHOTO_MAX)
+            resultVO = ResultVO.ofFail(BizErrorCode.ADD_TAG_MAX)
         }
 
         withFormat {
@@ -64,13 +63,13 @@ class PhotoController {
             resultVO = ResultVO.ofFail(BizErrorCode.PARAMS_ERROR)
         }else {
             long uid = flash.user.id
-            long edition = photoService.invalid(id,uid)
+            long edition = tagService.invalid(id,uid)
             if (edition > 0){
                 resultVO = ResultVO.ofSuccess(edition)
             }else if (edition == -2L){
                 resultVO = ResultVO.ofFail(BizErrorCode.PERMISSION_DENIED)
             }else {
-                resultVO = ResultVO.ofFail(BizErrorCode.NO_SUCH_PHOTO)
+                resultVO = ResultVO.ofFail(BizErrorCode.NO_SUCH_TAG)
             }
         }
 
