@@ -1,5 +1,6 @@
 package com.teamlinking.single
 
+import com.google.common.collect.Lists
 import com.teamlinking.single.constants.BizErrorCode
 import com.teamlinking.single.vo.ResultVO
 
@@ -58,12 +59,24 @@ class TagController {
 
     def delete() {
         long id = params.long('id',0)
+        String ids = params."ids" as String
         ResultVO resultVO = null
-        if (id == 0L) {
+        if (id == 0L && ids == null) {
             resultVO = ResultVO.ofFail(BizErrorCode.PARAMS_ERROR)
         }else {
             long uid = flash.user.id
-            long edition = tagService.invalid(id,uid)
+            List<Long> idList = Lists.newArrayList()
+            if (id > 0L){
+                idList << id
+            }else if (ids != null){
+                ids.split(",").each {
+                    idList << (it as Long)
+                }
+            }
+            long edition = 0
+            idList.each {
+                edition = tagService.invalid(it,uid)
+            }
             if (edition > 0){
                 resultVO = ResultVO.ofSuccess(edition)
             }else if (edition == -2L){
