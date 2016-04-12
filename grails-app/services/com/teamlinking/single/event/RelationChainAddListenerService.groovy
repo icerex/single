@@ -9,31 +9,24 @@ import com.teamlinking.single.User
 class RelationChainAddListenerService {
 
     /**
-     * 更新自己数据和朋友的圈子
+     * 更新自己数据
      * @param event
      */
     @Subscribe
     void updateSelfData(RelationChainAddEvent event) {
-        User user = User.findByMobilemd5(event.friend)
-        if (user) {
-            PersonData personData = PersonData.findByMobilemd5(event.owner)
-            if (personData) {
-                personData.totalSingle += 1
-            } else {
-                personData = new PersonData(
-                        dateCreated: new Date(),
-                        mobilemd5: event.owner,
-                        register: 1 as Byte,
-                        totalSingle: 1
-                )
-            }
-            personData.lastUpdated = new Date()
-            personData.save(flush: true, failOnError: true)
-
-            user.coterieVersion += 1
-            user.lastUpdated = new Date()
-            user.save(flush: true, failOnError: true)
+        PersonData personData = PersonData.findByMobilemd5(event.owner)
+        if (personData) {
+            personData.totalSingle += 1
+        } else {
+            personData = new PersonData(
+                    dateCreated: new Date(),
+                    mobilemd5: event.owner,
+                    register: 1 as Byte,
+                    totalSingle: 1
+            )
         }
+        personData.lastUpdated = new Date()
+        personData.save(flush: true, failOnError: true)
     }
 
     /**
@@ -81,17 +74,23 @@ class RelationChainAddListenerService {
      */
     @Subscribe
     void updateFriendData(RelationChainAddEvent event) {
-        User user = User.findByMobilemd5(event.friend)
-        if (user) {
-            RelationChain.findAllByStatusAndOwnerAndFriendNotEqual(1 as Byte,event.owner,event.friend).each {
-                User friend = User.findByMobilemd5(it.friend)
-                if (friend){
-                    friend.coterieVersion += 1
-                    friend.lastUpdated = new Date()
-                    friend.save(flush: true, failOnError: true)
-                }
+        PersonData personData = PersonData.findByMobilemd5(event.friend)
+        if (personData) {
+            personData.totalSingle += 1
+        } else {
+            personData = new PersonData(
+                    dateCreated: new Date(),
+                    mobilemd5: event.owner,
+                    totalSingle: 1
+            )
+
+            User user = User.findByMobilemd5(event.friend)
+            if (user) {
+                personData.register = (1 as Byte)
             }
         }
+        personData.lastUpdated = new Date()
+        personData.save(flush: true, failOnError: true)
 
     }
 }

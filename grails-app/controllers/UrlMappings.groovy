@@ -29,6 +29,9 @@ class UrlMappings {
 
         "/api/1.0/recommend/pull.json"(controller: 'recommend', action: 'pull')
 
+        "/api/1.0/personData/query.json"(controller: 'personData', action: 'query')
+        "/api/1.0/personData/get.json"(controller: 'personData', action: 'get')
+
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')

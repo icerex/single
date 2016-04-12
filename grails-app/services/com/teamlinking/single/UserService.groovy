@@ -26,7 +26,7 @@ class UserService {
             info.save()
 
             user.lastUpdated = new Date()
-            user.register = 1 as Byte
+            user.register = (1 as Byte)
             user.save(flush: true, failOnError: true)
         }
         return info

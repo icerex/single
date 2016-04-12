@@ -25,8 +25,6 @@ class User {
     Date loginTime
     //发现版本
     Long findVersion = 0
-    //圈子版本
-    Long coterieVersion = 0
     //我想认识>>版本
     Long gtVersion = 0
     //交往中==版本
@@ -47,7 +45,6 @@ class User {
         mobilemd5 nullable: false, blank: false
         register inList: [1 as byte, 0 as byte]
         findVersion nullable: false, blank: false
-        coterieVersion nullable: false, blank: false
         gtVersion nullable: false, blank: false
         eqVersion nullable: false, blank: false
         ltVersion nullable: false, blank: false

@@ -1,5 +1,7 @@
 package com.teamlinking.single
 
+import com.alibaba.fastjson.JSONObject
+
 class PersonData {
     Long id
 
@@ -18,6 +20,12 @@ class PersonData {
     Integer totalRecommend = 0
     //版本号
     Long version = 0
+
+    JSONObject toJSON(){
+        JSONObject jsonObject = JSONObject.toJSON(this.properties)
+        jsonObject.put("id",id)
+        return jsonObject
+    }
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]

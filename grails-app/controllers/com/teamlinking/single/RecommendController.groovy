@@ -1,7 +1,6 @@
 package com.teamlinking.single
 
 import com.google.common.collect.Lists
-import com.teamlinking.single.constants.BizErrorCode
 import com.teamlinking.single.vo.RecommendsVO
 import com.teamlinking.single.vo.ResultVO
 
