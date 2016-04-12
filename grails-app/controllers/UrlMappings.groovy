@@ -25,6 +25,9 @@ class UrlMappings {
         "/api/1.0/tag/delete.json"(controller: 'tag', action: 'delete')
 
         "/api/1.0/relationChain/add.json"(controller: 'relationChain', action: 'add')
+        "/api/1.0/relationChain/common.json"(controller: 'relationChain', action: 'common')
+
+        "/api/1.0/recommend/pull.json"(controller: 'recommend', action: 'pull')
 
         "/"(view:"/index")
         "500"(view:'/error')

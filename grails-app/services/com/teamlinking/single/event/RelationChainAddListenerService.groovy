@@ -81,6 +81,17 @@ class RelationChainAddListenerService {
      */
     @Subscribe
     void updateFriendData(RelationChainAddEvent event) {
+        User user = User.findByMobilemd5(event.friend)
+        if (user) {
+            RelationChain.findAllByStatusAndOwnerAndFriendNotEqual(1 as Byte,event.owner,event.friend).each {
+                User friend = User.findByMobilemd5(it.friend)
+                if (friend){
+                    friend.coterieVersion += 1
+                    friend.lastUpdated = new Date()
+                    friend.save(flush: true, failOnError: true)
+                }
+            }
+        }
 
     }
 }

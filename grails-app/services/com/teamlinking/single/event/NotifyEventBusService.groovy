@@ -1,7 +1,6 @@
 package com.teamlinking.single.event
 
 import com.google.common.eventbus.AsyncEventBus
-import org.omg.CORBA.Object
 import org.springframework.beans.factory.InitializingBean
 
 import java.util.concurrent.Executors
