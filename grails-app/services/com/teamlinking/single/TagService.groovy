@@ -12,7 +12,7 @@ class TagService {
                     edition: edition
             )
             if (edition != info.tagVersion.longValue()) {
-                Tag.findAllByUidAndEditionGreaterThanEquals(uid, edition).each {
+                Tag.findAllByUidAndEditionGreaterThan(uid, edition).each {
                     if (it.status.equals(1 as Byte)) {
                         tagsVO.add(it.id, it.type, it.uid, it.content, it.operatorUid)
                     } else {

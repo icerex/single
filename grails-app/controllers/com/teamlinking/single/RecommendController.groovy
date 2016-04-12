@@ -1,7 +1,6 @@
 package com.teamlinking.single
 
 import com.google.common.collect.Lists
-import com.teamlinking.single.vo.RecommendsVO
 import com.teamlinking.single.vo.ResultVO
 
 class RecommendController {
@@ -13,7 +12,6 @@ class RecommendController {
         String niUids = params."niUids" as String
 
         long uid = flash.user.id
-        long findVersion = flash.user.findVersion
 
         ResultVO resultVO = null
         List<Long> niUidList = Lists.newArrayList()
@@ -23,13 +21,7 @@ class RecommendController {
             }
         }
 
-        if (findVersion != edition){
-            resultVO = ResultVO.ofSuccess(recommendService.pull(uid,edition,niUidList))
-        }else {
-            resultVO = ResultVO.ofSuccess(new RecommendsVO(
-                    edition: edition
-            ))
-        }
+        resultVO = ResultVO.ofSuccess(recommendService.pull(uid,edition,niUidList))
 
         withFormat {
             json {

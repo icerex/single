@@ -44,7 +44,9 @@ enum BizErrorCode {
 
     ADD_TAG_ERROR("新增标签失败，请稍后重试", 18),
 
-    ADD_TAG_MAX("每人最多只能为一位添加5个标签", 19);
+    ADD_TAG_MAX("每人最多只能为一位添加5个标签", 19),
+
+    ADD_ERROR("系统出错啦,是不能添加自己的哦", 20);
 
     // 成员变量
     private String msg;

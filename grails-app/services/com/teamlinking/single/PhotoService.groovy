@@ -18,7 +18,7 @@ class PhotoService {
                 edition: edition
             )
             if (edition != info.albumVersion.longValue()) {
-                Photo.findAllByUidAndEditionGreaterThanEquals(uid,edition).each {
+                Photo.findAllByUidAndEditionGreaterThan(uid,edition).each {
                     if (it.status.equals(1 as Byte)){
                         albumVO.add(it.id,it.url)
                     }else {

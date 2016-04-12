@@ -23,14 +23,6 @@ class User {
     String salt
     //登陆时间
     Date loginTime
-    //发现版本
-    Long findVersion = 0
-    //我想认识>>版本
-    Long gtVersion = 0
-    //交往中==版本
-    Long eqVersion = 0
-    //想认识我<<版本
-    Long ltVersion = 0
 
     JSONObject toJSON(){
         JSONObject jsonObject = JSONObject.toJSON(this.properties)
@@ -44,10 +36,6 @@ class User {
         mobile nullable: false, blank: false
         mobilemd5 nullable: false, blank: false
         register inList: [1 as byte, 0 as byte]
-        findVersion nullable: false, blank: false
-        gtVersion nullable: false, blank: false
-        eqVersion nullable: false, blank: false
-        ltVersion nullable: false, blank: false
         token nullable: true, blank: true
         salt nullable: true, blank: true
         loginTime nullable: true, blank: true

@@ -33,6 +33,11 @@ class UrlMappings {
         "/api/1.0/personData/query.json"(controller: 'personData', action: 'query')
         "/api/1.0/personData/get.json"(controller: 'personData', action: 'get')
 
+        "/api/1.0/heat/add.json"(controller: 'heat', action: 'add')
+        "/api/1.0/heat/like.json"(controller: 'heat', action: 'like')
+        "/api/1.0/heat/ing.json"(controller: 'heat', action: 'ing')
+        "/api/1.0/heat/likeMe.json"(controller: 'heat', action: 'likeMe')
+
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')

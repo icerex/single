@@ -54,15 +54,12 @@ class UserRegisterListenerService {
                 if (user){
                     Recommend recommend = Recommend.findByBeRecommendUidAndReceiverUid(event.uid,user.id)
                     if (recommend == null){
-                        recommend = new Recommend(
+                        new Recommend(
                                 dateCreated: new Date(),
                                 receiverUid: user.id,
                                 beRecommendUid:  event.uid,
                                 recommendUid: 0L
-                        ).save()
-                        user.findVersion = recommend.edition
-                        user.lastUpdated = new Date()
-                        user.save(flush: true, failOnError: true)
+                        ).save(flush: true, failOnError: true)
                     }
                 }
             }

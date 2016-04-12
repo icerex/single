@@ -38,31 +38,23 @@ class RelationChainAddListenerService {
         RelationChain.findAllByStatusAndOwnerNotEqualAndFriend(1 as Byte,event.owner,event.friend).each {
             User user = User.findByMobilemd5(it.owner)
             if (user){
-                boolean isUpdate = false
                 Recommend recommend = Recommend.findByBeRecommendUidAndReceiverUid(event.ownerId,user.id)
                 if (recommend == null){
-                    recommend = new Recommend(
+                    new Recommend(
                             dateCreated: new Date(),
                             receiverUid: user.id,
                             beRecommendUid:  event.ownerId,
                             recommendUid: 0L
-                    ).save()
-                    isUpdate = true
+                    ).save(flush: true, failOnError: true)
                 }
                 recommend = Recommend.findByBeRecommendUidAndReceiverUid(user.id,event.ownerId)
                 if (recommend == null){
-                    recommend = new Recommend(
+                    new Recommend(
                             dateCreated: new Date(),
                             receiverUid: event.ownerId,
                             beRecommendUid:  user.id,
                             recommendUid: 0L
-                    ).save()
-                    isUpdate = true
-                }
-                if (isUpdate) {
-                    user.findVersion = recommend.edition
-                    user.lastUpdated = new Date()
-                    user.save(flush: true, failOnError: true)
+                    ).save(flush: true, failOnError: true)
                 }
             }
         }

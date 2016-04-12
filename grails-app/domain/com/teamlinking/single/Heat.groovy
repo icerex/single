@@ -1,5 +1,7 @@
 package com.teamlinking.single
 
+import com.alibaba.fastjson.JSONObject
+
 class Heat {
 
     Long id
@@ -17,6 +19,13 @@ class Heat {
     Byte relation = 0
     //版本号
     Long edition = System.currentTimeMillis()
+
+    JSONObject toJSON(){
+        JSONObject jsonObject = JSONObject.toJSON(this.properties)
+        jsonObject.put("id",id)
+        jsonObject.put("edition",edition)
+        return jsonObject
+    }
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]

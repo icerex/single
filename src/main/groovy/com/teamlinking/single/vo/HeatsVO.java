@@ -7,25 +7,25 @@ import java.util.List;
 /**
  * Created by rex on 16/4/12.
  */
-public class RecommendsVO {
+public class HeatsVO {
     private long edition;
-    private List<RecommendVO> list = Lists.newArrayList();
+    private List<HeatVO> list = Lists.newArrayList();
     private List<Long> invalids = Lists.newArrayList();
 
     public void add(long uid,long version){
-        list.add(new RecommendVO(uid,version));
+        list.add(new HeatVO(uid,version));
     }
     public void invalid(long id) {
         invalids.add(id);
     }
 
-    class RecommendVO{
+    class HeatVO{
         private long uid;
         private long version;
 
-        RecommendVO(){}
+        HeatVO(){}
 
-        RecommendVO(long uid,long version){
+        HeatVO(long uid,long version){
             this.uid = uid;
             this.version = version;
         }
@@ -55,11 +55,11 @@ public class RecommendsVO {
         this.edition = edition;
     }
 
-    public List<RecommendVO> getList() {
+    public List<HeatVO> getList() {
         return list;
     }
 
-    public void setList(List<RecommendVO> list) {
+    public void setList(List<HeatVO> list) {
         this.list = list;
     }
 
