@@ -1,11 +1,15 @@
 package com.teamlinking.single
 
+import com.alibaba.fastjson.JSONObject
+
 class Recommend {
     Long id
 
     Byte status = 1 as Byte
 
     Date dateCreated
+
+    Date lastUpdated
     //接收方uid
     Long receiverUid
     //被推荐人uid
@@ -14,6 +18,12 @@ class Recommend {
     Long recommendUid
     //版本号
     Long edition = System.currentTimeMillis()
+
+    JSONObject toJSON(){
+        JSONObject jsonObject = JSONObject.toJSON(this.properties)
+        jsonObject.put("id",id)
+        return jsonObject
+    }
 
     static constraints = {
         status inList: [1 as byte, 0 as byte]

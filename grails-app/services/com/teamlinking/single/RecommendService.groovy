@@ -6,7 +6,9 @@ import com.teamlinking.single.vo.RecommendsVO
 class RecommendService {
 
     RecommendsVO pull(long uid, long edition, List<Long> niUids) {
-        RecommendsVO recommendsVO = new Recommend()
+        RecommendsVO recommendsVO = new RecommendsVO(
+                edition: System.currentTimeMillis()
+        )
         List<Recommend> list = Recommend.createCriteria().list {
             if (niUids) {
                 not { 'in'("beRecommendUid", niUids) }
@@ -28,5 +30,20 @@ class RecommendService {
             }
         }
         return recommendsVO
+    }
+
+    Recommend add(long receiverUid,long beRecommendUid,long recommendUid){
+        Recommend recommend = Recommend.findByReceiverUidAndBeRecommendUid(receiverUid,beRecommendUid)
+        if (recommend == null){
+            recommend = new Recommend(
+                    dateCreated: new Date(),
+                    receiverUid: receiverUid,
+                    beRecommendUid: beRecommendUid
+            )
+        }
+        recommend.recommendUid = recommendUid
+        recommend.edition = System.currentTimeMillis()
+        recommend.lastUpdated = new Date()
+        recommend.save(flush: true, failOnError: true)
     }
 }

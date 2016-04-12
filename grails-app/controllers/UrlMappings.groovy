@@ -29,6 +29,7 @@ class UrlMappings {
         "/api/1.0/relationChain/common.json"(controller: 'relationChain', action: 'common')
 
         "/api/1.0/recommend/pull.json"(controller: 'recommend', action: 'pull')
+        "/api/1.0/recommend/add.json"(controller: 'recommend', action: 'add')
 
         "/api/1.0/personData/query.json"(controller: 'personData', action: 'query')
         "/api/1.0/personData/get.json"(controller: 'personData', action: 'get')

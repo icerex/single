@@ -24,6 +24,7 @@ class PersonData {
     JSONObject toJSON(){
         JSONObject jsonObject = JSONObject.toJSON(this.properties)
         jsonObject.put("id",id)
+        jsonObject.put("version",version)
         return jsonObject
     }
 

@@ -23,7 +23,6 @@ class Heat {
     JSONObject toJSON(){
         JSONObject jsonObject = JSONObject.toJSON(this.properties)
         jsonObject.put("id",id)
-        jsonObject.put("edition",edition)
         return jsonObject
     }
 
