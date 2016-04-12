@@ -1,5 +1,6 @@
 package com.teamlinking.single
 
+import com.google.common.collect.Lists
 import com.teamlinking.single.constants.BizErrorCode
 import com.teamlinking.single.vo.ResultVO
 
@@ -8,12 +9,19 @@ class PersonDataController {
     PersonDataService personDataService
 
     def query() {
+        String mobiles = params."mobiles" as String
 
         ResultVO resultVO = null
 
         String mobilemd5 = flash.user.mobilemd5
+        List<String> friend = Lists.newArrayList()
+        if (mobiles) {
+            mobiles.split(",").each {
+                friend << it
+            }
+        }
 
-        resultVO = ResultVO.ofSuccess(personDataService.query(mobilemd5))
+        resultVO = ResultVO.ofSuccess(personDataService.query(mobilemd5,friend))
 
         withFormat {
             json {

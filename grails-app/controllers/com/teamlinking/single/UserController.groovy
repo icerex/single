@@ -126,4 +126,23 @@ class UserController {
         }
     }
 
+    def friends(){
+        long id = params.long('id',0)
+        if (id == 0L){
+            id = flash.user.id
+        }
+        ResultVO resultVO = null
+        def friends = userService.friends(id)
+        if (friends){
+            resultVO = ResultVO.ofSuccess(friends)
+        }else {
+            resultVO = ResultVO.ofFail(BizErrorCode.NO_SUCH_USER)
+        }
+        withFormat {
+            json {
+                render text: resultVO.toJSONString(), contentType: 'application/json;', encoding: "UTF-8"
+            }
+        }
+    }
+
 }

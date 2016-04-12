@@ -6,13 +6,15 @@ import org.springframework.beans.BeanUtils
 
 class PersonDataService {
 
-    List<PersonDataVO> query(String mobilemd5) {
-        List<String> friendIds = Lists.newArrayList()
-        RelationChain.findAllByStatusAndOwner(1 as Byte,mobilemd5).each {
-            friendIds << it.friend
+    List<PersonDataVO> query(String mobilemd5,List<String> friends) {
+        if (friends == null || friends.size() == 0) {
+            friends = Lists.newArrayList()
+            RelationChain.findAllByStatusAndOwner(1 as Byte, mobilemd5).each {
+                friends << it.friend
+            }
         }
         List<PersonDataVO> list = Lists.newArrayList()
-        PersonData.findAllByStatusAndMobilemd5InList(1 as Byte,friendIds).each {
+        PersonData.findAllByStatusAndMobilemd5InList(1 as Byte,friends).each {
             PersonDataVO personDataVO = new PersonData()
             BeanUtils.copyProperties(it,personDataVO)
             list << personDataVO

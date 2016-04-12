@@ -35,13 +35,32 @@ class UserService {
     PageVO<UserInfoVO> query(List<Long> ids){
         PageVO<UserInfoVO> pageVO = new PageVO<UserInfoVO>()
         List<UserInfoVO> list = Lists.newArrayList()
-        UserInfo.findAllByIdInList(ids).each {
-            UserInfoVO infoVO = new UserInfoVO()
-            BeanUtils.copyProperties(it,infoVO)
-            list << infoVO
+        if (ids.size() > 0) {
+            UserInfo.findAllByIdInList(ids).each {
+                UserInfoVO infoVO = new UserInfoVO()
+                BeanUtils.copyProperties(it, infoVO)
+                list << infoVO
+            }
         }
         pageVO.result = list
         pageVO.count = list.size()
         return pageVO
+    }
+
+
+    PageVO<UserInfoVO> friends(long id){
+        User user = User.get(id)
+        if (user) {
+            List<String> md5s = Lists.newArrayList()
+            RelationChain.findAllByStatusAndOwner(1 as Byte,user.mobilemd5).each {
+                md5s << it.friend
+            }
+            List<Long> ids = Lists.newArrayList()
+            if (md5s.size() > 0){
+                User.findAllByStatusAndMobilemd5InList(1 as Byte,md5s)
+            }
+            return query(ids)
+        }
+        return null
     }
 }

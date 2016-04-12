@@ -26,20 +26,20 @@ class SecurityInterceptor {
         String timestamp = request.getHeader("TIME_STAMP")
         if (StringUtils.isEmpty(token) || StringUtils.isEmpty(sign) || StringUtils.isEmpty(timestamp)) {
             log.info("authentication fail: header is null")
-            ResultVO resultVO = ResultVO.ofFail(BizErrorCode.LOGIN_PARAM_NO_ERRO.code,BizErrorCode.LOGIN_PARAM_NO_ERRO.msg)
+            ResultVO resultVO = ResultVO.ofFail(BizErrorCode.LOGIN_PARAM_NO_ERROR)
             responseOutWithJson(response,resultVO)
             return false
         }
         User user = loginService.check(token, sign, timestamp)
         if (user == null) {
             log.info("authentication fail,sign is error : token=" + token + ",sign=" + sign + ",timestamp=" + timestamp)
-            ResultVO resultVO = ResultVO.ofFail(BizErrorCode.SESSION_TIME_OUT.code,BizErrorCode.SESSION_TIME_OUT.msg)
+            ResultVO resultVO = ResultVO.ofFail(BizErrorCode.SESSION_TIME_OUT)
             responseOutWithJson(response,resultVO)
             return false
         }
         flash.user = user
 
-        log.info(user.mobile + "authentication access ")
+        log.info(user.mobile + " authentication access ")
         true
     }
 
