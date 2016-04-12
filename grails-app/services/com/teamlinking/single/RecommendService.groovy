@@ -44,6 +44,10 @@ class RecommendService {
         recommend.recommendUid = recommendUid
         recommend.edition = System.currentTimeMillis()
         recommend.lastUpdated = new Date()
-        recommend.save(flush: true, failOnError: true)
+        recommend = recommend.save(flush: true, failOnError: true)
+
+        //todo 发消息
+
+        return recommend
     }
 }
