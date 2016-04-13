@@ -145,4 +145,28 @@ class UserController {
         }
     }
 
+    def contact(){
+        Long id = params."id" as Long
+
+        ResultVO resultVO = null
+        if (id == null) {
+            resultVO = ResultVO.ofFail(BizErrorCode.PARAMS_ERROR)
+        }else {
+            long ownerId = flash.user.id
+            String ownerMd5 = flash.user.mobilemd5
+            Boolean contact = userService.contact(ownerId,ownerMd5,id)
+            if (contact == null){
+                resultVO = ResultVO.ofFail(BizErrorCode.NO_SUCH_USER)
+            }else {
+                resultVO = ResultVO.ofSuccess(contact)
+            }
+        }
+
+        withFormat {
+            json {
+                render text: resultVO.toJSONString(), contentType: 'application/json;', encoding: "UTF-8"
+            }
+        }
+    }
+
 }

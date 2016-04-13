@@ -1,6 +1,7 @@
 package com.teamlinking.single
 
 import com.google.common.collect.Lists
+import com.teamlinking.single.enums.HeatType
 import com.teamlinking.single.vo.PageVO
 import com.teamlinking.single.vo.UserInfoVO
 import org.springframework.beans.BeanUtils
@@ -62,5 +63,22 @@ class UserService {
             return query(ids)
         }
         return null
+    }
+
+    Boolean contact(long ownerId,String ownerMd5,long otherId){
+        User other = User.get(otherId)
+        if (other == null){
+            return null
+        }
+        if (RelationChain.findByOwnerAndFriend(ownerMd5,other.mobilemd5)){
+            return true
+        }
+        if(Heat.findByStatusAndOwnerUidAndReceiverUidAndRelation(1 as Byte,ownerId,otherId,HeatType.ing.key)){
+            return true
+        }
+        if(Heat.findByStatusAndOwnerUidAndReceiverUidAndRelation(1 as Byte,otherId,ownerId,HeatType.ing.key)){
+            return true
+        }
+        return false
     }
 }
