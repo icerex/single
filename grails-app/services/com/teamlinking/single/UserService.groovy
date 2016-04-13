@@ -8,15 +8,19 @@ import org.springframework.beans.BeanUtils
 
 class UserService {
 
-    User get(String mobile) {
+    User get(long id){
+        User.get(id)
+    }
+
+    User getByMobile(String mobile) {
         User.findByMobile(mobile)
     }
 
-    UserInfo getInfo(long id){
+    UserInfo getInfo(long id) {
         UserInfo info = UserInfo.get(id)
-        if (info == null){
+        if (info == null) {
             User user = User.get(id)
-            if (user == null){
+            if (user == null) {
                 return null
             }
             info = new UserInfo()
@@ -33,7 +37,7 @@ class UserService {
         return info
     }
 
-    PageVO<UserInfoVO> query(List<Long> ids){
+    PageVO<UserInfoVO> query(List<Long> ids) {
         PageVO<UserInfoVO> pageVO = new PageVO<UserInfoVO>()
         List<UserInfoVO> list = Lists.newArrayList()
         if (ids.size() > 0) {
@@ -49,34 +53,30 @@ class UserService {
     }
 
 
-    PageVO<UserInfoVO> friends(long id){
-        User user = User.get(id)
-        if (user) {
-            List<String> md5s = Lists.newArrayList()
-            RelationChain.findAllByStatusAndOwner(1 as Byte,user.mobilemd5).each {
-                md5s << it.friend
-            }
-            List<Long> ids = Lists.newArrayList()
-            if (md5s.size() > 0){
-                User.findAllByStatusAndMobilemd5InList(1 as Byte,md5s)
-            }
-            return query(ids)
+    PageVO<UserInfoVO> friends(String md5) {
+        List<String> md5s = Lists.newArrayList()
+        RelationChain.findAllByStatusAndOwner(1 as Byte, md5).each {
+            md5s << it.friend
         }
-        return null
+        List<Long> ids = Lists.newArrayList()
+        if (md5s.size() > 0) {
+            User.findAllByStatusAndMobilemd5InList(1 as Byte, md5s)
+        }
+        return query(ids)
     }
 
-    Boolean contact(long ownerId,String ownerMd5,long otherId){
+    Boolean contact(long ownerId, String ownerMd5, long otherId) {
         User other = User.get(otherId)
-        if (other == null){
+        if (other == null) {
             return null
         }
-        if (RelationChain.findByOwnerAndFriend(ownerMd5,other.mobilemd5)){
+        if (RelationChain.findByOwnerAndFriend(ownerMd5, other.mobilemd5)) {
             return true
         }
-        if(Heat.findByStatusAndOwnerUidAndReceiverUidAndRelation(1 as Byte,ownerId,otherId,HeatType.ing.key)){
+        if (Heat.findByStatusAndOwnerUidAndReceiverUidAndRelation(1 as Byte, ownerId, otherId, HeatType.ing.key)) {
             return true
         }
-        if(Heat.findByStatusAndOwnerUidAndReceiverUidAndRelation(1 as Byte,otherId,ownerId,HeatType.ing.key)){
+        if (Heat.findByStatusAndOwnerUidAndReceiverUidAndRelation(1 as Byte, otherId, ownerId, HeatType.ing.key)) {
             return true
         }
         return false

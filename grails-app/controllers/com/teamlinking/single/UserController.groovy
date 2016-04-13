@@ -128,13 +128,13 @@ class UserController {
 
     def friends(){
         long id = params.long('id',0)
-        if (id == 0L){
-            id = flash.user.id
+        def user = flash.user
+        if (id != 0L){
+            user = userService.get(id)
         }
         ResultVO resultVO = null
-        def friends = userService.friends(id)
-        if (friends){
-            resultVO = ResultVO.ofSuccess(friends)
+        if (user){
+            resultVO = ResultVO.ofSuccess(userService.friends(user.mobilemd5))
         }else {
             resultVO = ResultVO.ofFail(BizErrorCode.NO_SUCH_USER)
         }

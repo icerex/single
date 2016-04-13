@@ -12,6 +12,8 @@ class NologinController {
 
     SmsVerifyKit smsVerifyKit
     LoginService loginService
+    UserService userService
+    PersonDataService personDataService
 
     def login() {
         int system = params.int('system', 0)
@@ -39,15 +41,59 @@ class NologinController {
         }
     }
 
-    def error(){
-        int code = params.int("errorCode",0)
-        ResultVO resultVO = ResultVO.ofFail(code,BizErrorCode.getEnum(code).msg)
-        log.info("code:"+code)
-
-        withFormat {
-            json {
-                render text: resultVO.toJSONString(), contentType: 'application/json;', encoding: "UTF-8"
-            }
+    def recommend(){
+        Long id = params."id" as Long
+        if (id == null){
+            redirect(url: "/error")
+            return
         }
+
+        def userInfo = userService.getInfo(id)
+        if (userInfo == null){
+            redirect(url: "/error")
+            return
+        }
+
+        String recommender = null
+        Long rid = params."rid" as Long
+        if (rid){
+            recommender = userService.getInfo(rid)?.name
+        }
+
+        render(view: "recommend", model: [
+                userInfo: userInfo,
+                recommender: recommender
+        ])
+    }
+
+    def invite(){
+        Long id = params."id" as Long
+        if (id == null){
+            redirect(url: "/error")
+            return
+        }
+        def userInfo = userService.getInfo(id)
+        if (userInfo == null){
+            redirect(url: "/error")
+            return
+        }
+        def user = userService.get(id)
+        if(user == null){
+            redirect(url: "/error")
+            return
+        }
+        def personData = personDataService.get(user.mobilemd5)
+        if (personData == null){
+            redirect(url: "/error")
+            return
+        }
+
+        def friends = userService.friends(user.mobilemd5)
+
+        render(view: "invite", model: [
+                userInfo: userInfo,
+                personData: personData,
+                friends: friends
+        ])
     }
 }

@@ -6,6 +6,8 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+        "/1.0/wechat/recommend/$id"(controller: 'nologin', action: 'recommend')
+        "/1.0/wechat/invite/$id"(controller: 'nologin', action: 'invite')
 
         "/api/1.0/login.json"(controller: 'nologin', action: 'login')
 
