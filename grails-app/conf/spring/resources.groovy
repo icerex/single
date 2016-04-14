@@ -1,3 +1,4 @@
+import com.teamlinking.single.push.apicloud.Push
 import com.teamlinking.single.sms.mob.SmsVerifyKit
 import com.teamlinking.single.storage.QiniuUpload
 import grails.util.Environment
@@ -24,6 +25,11 @@ beans = {
         address = "https://webapi.sms.mob.com/sms/verify"
         iosAppkey = "10fbbbbe5def5"
         andoridAppkey = "10fbfd24fa4fb"
+    }
+
+    push(Push){
+        appId = "A6904694668561"
+        appKey = "7CD66B9F-EA16-9512-677C-B3DE807D57A1"
     }
 
     multipartResolver(CommonsMultipartResolver) {
