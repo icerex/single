@@ -37,7 +37,7 @@ class UserRegisterListenerService {
     }
 
     /**
-     * 更新朋友们数据和发现
+     * 更新朋友的数据
      * @param event
      */
     @Subscribe
@@ -48,20 +48,6 @@ class UserRegisterListenerService {
                 personData.totalSingle += 1
                 personData.lastUpdated = new Date()
                 personData.save(flush: true, failOnError: true)
-            }
-            RelationChain.findAllByStatusAndFriendAndOwnerNotEqual(1 as Byte,it.owner,event.mobilemd5).each {
-                User user = User.findByMobilemd5(it.owner)
-                if (user){
-                    Recommend recommend = Recommend.findByBeRecommendUidAndReceiverUid(event.uid,user.id)
-                    if (recommend == null){
-                        new Recommend(
-                                dateCreated: new Date(),
-                                receiverUid: user.id,
-                                beRecommendUid:  event.uid,
-                                recommendUid: 0L
-                        ).save(flush: true, failOnError: true)
-                    }
-                }
             }
         }
     }
