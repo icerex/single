@@ -12,13 +12,11 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class Push {
 
-    //headers参数
-    private Map<String,String> headers = new HashMap<String,String>();
+    private static final String DEFAUT_DOMAIN = "https://p.apicloud.com";
 
-    private String domain = "https://p.apicloud.com";
-
-    //params参数
-    private Map<String,String> params = new HashMap<String,String>();
+    private String domain;
+    private String appId;
+    private String appKey;
 
     /**
      * @param appId
@@ -26,15 +24,11 @@ public class Push {
      * @param domain 为空或者null为默认https
      */
     public Push(String appId,String appKey,String domain){
-
-        if(null!=domain&&!"".equals(domain)){
-            this.domain = domain;
-        }
-        headers.put("X-APICloud-AppId", appId);
-        headers.put("X-APICloud-AppKey", ApiCloudClient.encrypt(appId,appKey,"SHA-1"));
+        this.appId = appId;
+        this.appKey = appKey;
+        this.domain = domain;
     }
 
-    @SuppressWarnings("unused")
     private Push(){};
 
     /**
@@ -50,7 +44,7 @@ public class Push {
     public JSONObject pushMessage(String title,String content,int type,int platform,String groupName,String userIds){
 
         //设置参数
-        params.clear();
+        Map<String,String> params = new HashMap<String,String>();
         params.put("title", title);
         params.put("content", content);
         params.put("type", type+"");
@@ -58,8 +52,38 @@ public class Push {
         params.put("platform", platform+"");
         params.put("groupName", groupName);
         params.put("userIds", userIds);
+        if(null == domain || "".equals(domain)){
+            domain = DEFAUT_DOMAIN;
+        }
         String url = domain+"/api/push/message";
+        Map<String,String> headers = new HashMap<String,String>();
+        headers.put("X-APICloud-AppId", appId);
+        headers.put("X-APICloud-AppKey", ApiCloudClient.encrypt(appId,appKey,"SHA-1"));
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         return ApiCloudClient.doPost(url, headers, params, "");
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
     }
 }

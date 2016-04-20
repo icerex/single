@@ -14,6 +14,7 @@ class NologinController {
     LoginService loginService
     UserService userService
     PersonDataService personDataService
+    TagService tagService
 
     def login() {
         int system = params.int('system', 0)
@@ -33,6 +34,17 @@ class NologinController {
                 resultVO = ResultVO.ofFail(resultStatus.key,resultStatus.value)
             }
         }
+
+        withFormat {
+            json {
+                render text: resultVO.toJSONString(), contentType: 'application/json;', encoding: "UTF-8"
+            }
+        }
+    }
+
+    def tagSample() {
+
+        ResultVO resultVO = ResultVO.ofSuccess(tagService.samples())
 
         withFormat {
             json {

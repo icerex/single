@@ -1,5 +1,6 @@
 package com.teamlinking.single
 
+import com.google.common.collect.Lists
 import com.teamlinking.single.vo.TagsVO
 
 class TagService {
@@ -69,5 +70,13 @@ class TagService {
             return tag.edition
         }
         return -1
+    }
+
+    List<String> samples(){
+        List<String> list = Lists.newArrayList()
+        TagSample.findAllByStatus(1 as Byte).each {
+            list << it.content
+        }
+        return list
     }
 }

@@ -10,6 +10,7 @@ class UrlMappings {
         "/1.0/wechat/invite/$id"(controller: 'nologin', action: 'invite')
 
         "/api/1.0/login.json"(controller: 'nologin', action: 'login')
+        "/api/1.0/tag/sample.json"(controller: 'nologin', action: 'tagSample')
 
         "/api/1.0/user/get.json"(controller: 'user', action: 'get')
         "/api/1.0/user/post.json"(controller: 'user', action: 'post')

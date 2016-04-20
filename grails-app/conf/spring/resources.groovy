@@ -30,6 +30,7 @@ beans = {
     push(Push){
         appId = "A6904694668561"
         appKey = "7CD66B9F-EA16-9512-677C-B3DE807D57A1"
+        domain = "https://p.apicloud.com"
     }
 
     multipartResolver(CommonsMultipartResolver) {
